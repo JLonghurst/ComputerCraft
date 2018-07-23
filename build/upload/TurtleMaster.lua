@@ -1,4 +1,4 @@
--- classic map
+-- classic map biiiiitch
 function map(func, array)
   local new_array = {}
   for i,v in ipairs(array) do

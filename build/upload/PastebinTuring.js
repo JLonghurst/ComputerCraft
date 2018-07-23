@@ -2,8 +2,8 @@ console.log("adding build to pastebin...");
 
 var fs = require('fs'),
 path = require('path'),    
-filePath = path.join(__dirname, "TurtleMaster.lua");
-
+filePath = path.join(__dirname, "Turing.lua");
+console.log("fartz")
 fs.readFile(filePath, {encoding: 'utf-8'}, function(err, file){
     if (!err) {
         // Post the file contents to pastebin
@@ -15,7 +15,7 @@ fs.readFile(filePath, {encoding: 'utf-8'}, function(err, file){
                 return false;
             }
          
-            paste.edit("UXLJ4BJf", file, function(success, data) {
+            paste.edit("FNe2GP5L", file, function(success, data) {
                 if(success) {
                     console.log("Posted successfully");
                     //data contains the URL of the created paste

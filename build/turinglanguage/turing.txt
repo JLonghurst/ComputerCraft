@@ -16,6 +16,21 @@ transition function (K, E) - > [(nextState or halt), E, MOVEMENT]
 (4, 0): write 1 move R gt 4
 (4, 1): write 0 move R gt 1
 
+# 4 state lua
+
+# 4 state actual
+{
+
+(1, 0): write 1 move R gt 2
+(1, 1): write 1 move L gt 2
+(2, 0): write 1 move L gt 1
+(2, 1): write 0 move L gt 3
+(3, 0): write l move - gt 4
+(3, 1): write 1 move L gt 4
+(4, 0): write 1 move R gt 4
+(4, 1): write 0 move R gt 1
+}
+
 
 # 4 state alternet
 
