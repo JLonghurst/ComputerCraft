@@ -1,10 +1,6 @@
 local List
 do
   local _base_0 = {
-    size = function(self)
-      local temp = self.size
-      return temp
-    end,
     empty = function(self)
       return self.size == 0
     end,
@@ -59,7 +55,7 @@ do
     __tostring = function(self)
       local str = "["
       for i = 0, self.size - 1 do
-        local item = self:get(i):str()
+        local item = self:get(i):__tostring()
         str = str .. (i .. ":" .. item .. " ")
         if (i + 1) % 4 == 0 then
           str = str .. "\n"

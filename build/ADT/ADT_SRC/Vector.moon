@@ -20,20 +20,26 @@ class Vector
         return Vector(@x / scalar, @y / scalar)
     
     __eq: (other) =>
-        return (@x == other.x) and (@y == other.y)
+        result = (@x == other.x) and (@y == other.y)
+        return result
+
+    __tostring: =>
+        return "<"..@x..", "..@y..">"
 
     length: =>
         return math.sqrt(@x*@x + @y*@y)
 
     rotate: (str) => 
-        if str == "90" then
+        -- rotations are weird, this shit is fucked
+        if str == "270" then
             return Vector(-@y, @x)
         else if str == "180" then
             return Vector(-@x, -@y)
-        else if str == "270" then
-            return Vector(@y, -@x)
+        else if str == "90" then
+            return Vector(@y, -@x)w
         else 
             print("invalid rotation string")
+            return nil
 
     dot: (other) =>
         return @x*other.x + @y*other.y

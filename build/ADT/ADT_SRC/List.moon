@@ -7,10 +7,6 @@ class List
         if table then
             for _,v in pairs(table)
                 @add(v)
-    
-    size: =>
-        temp = @size
-        return temp
 
     empty: =>
         return @size == 0
@@ -58,7 +54,7 @@ class List
     __tostring: =>
         str = "["
         for i=0, @size - 1 do
-            item = @get(i)\str()
+            item = @get(i)\__tostring()
             str ..= i .. ":" .. item .. " "
             if (i+1) % 4 == 0 then
                 str ..= "\n"

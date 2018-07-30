@@ -35,7 +35,9 @@ transition function (K, E) - > [(nextState or halt), E, MOVEMENT]
 # 4 state alternet
 
 def 1: 
-    if 0 write 1 move R gt 2
+    if 0:
+        write 1 
+        move R gt 2
     if 1 write 1 move L gt 2
 
 def 2: 
@@ -68,9 +70,9 @@ def 4:
 def halt \\ state def
 
     if 0: 
-        write 1 
-        move L
-        goto 1
+        write {0, 1}
+        move {R or L}
+        goto [statename]
     if 1: 
         write 1 
         move R 

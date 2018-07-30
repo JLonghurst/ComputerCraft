@@ -9,12 +9,18 @@ fs.readFile(filePath, {encoding: 'utf-8'}, function(err, file){
         // Post the file contents to pastebin
         var paste = require("better-pastebin");
         paste.setDevKey("537bb82f58fba3785abaa41c819120f3");
-        paste.login("hackobster", "codingPLZ22", function(success, data) {
+        paste.login("hackobster", "computerPLZ22", function(success, data) {
             if(!success) {
                 console.log("Failed (" + data + ")");
                 return false;
             }
          
+            paste.user(function(success, data) {
+                
+                //console.log(JSON.stringify(data))
+                //data contains an object of information about the logged-in user
+            });
+
             paste.edit("UXLJ4BJf", file, function(success, data) {
                 if(success) {
                     console.log("Posted successfully");

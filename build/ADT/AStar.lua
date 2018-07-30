@@ -120,9 +120,9 @@ function distance ( x1, y1, x2, y2 )
 end
 
 function getAStarPath ( start, goal )
-	print("finding path using a star...")
-	print(start)
-	print(goal)
+	--print("finding path using a star...")
+	--print(start)
+	--print(goal)
 	if not cachedPaths then cachedPaths = {} end
 	if not cachedPaths [ start ] then
 		cachedPaths [ start ] = {}
@@ -130,7 +130,7 @@ function getAStarPath ( start, goal )
 		return cachedPaths [ start ] [ goal ]
 	end
 	res = a_star ( start, goal )
-	print("path found")
+	--print("path found")
 	--print("a star path: " .. start:str() .. " to " .. goal:str())
 	return res
 end

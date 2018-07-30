@@ -14,22 +14,27 @@ do
       return Vector(self.x / scalar, self.y / scalar)
     end,
     __eq = function(self, other)
-      return (self.x == other.x) and (self.y == other.y)
+      local result = (self.x == other.x) and (self.y == other.y)
+      return result
+    end,
+    __tostring = function(self)
+      return "<" .. self.x .. ", " .. self.y .. ">"
     end,
     length = function(self)
       return math.sqrt(self.x * self.x + self.y * self.y)
     end,
     rotate = function(self, str)
-      if str == "90" then
+      if str == "270" then
         return Vector(-self.y, self.x)
       else
         if str == "180" then
           return Vector(-self.x, -self.y)
         else
-          if str == "270" then
-            return Vector(self.y, -self.x)
+          if str == "90" then
+            return Vector(self.y, -self.x)(w)
           else
-            return print("invalid rotation string")
+            print("invalid rotation string")
+            return nil
           end
         end
       end

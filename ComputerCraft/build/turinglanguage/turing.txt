@@ -1,0 +1,113 @@
+alphabet E (item ids)
+States: K with special s
+transition function (K, E) - > [(nextState or halt), E, MOVEMENT]
+
+# one state busy beaver
+(1, 0): write x move l halt
+(2, 1): write x move l halt
+
+# 4 state actual
+(1, 0): 
+    write 1 
+    move R 
+    gt 2
+(1, 1): write 1 move L gt 2
+(2, 0): write 1 move L gt 1
+(2, 1): write 0 move L gt 3
+(3, 0): write l move - gt 4
+(3, 1): write 1 move L gt 4
+(4, 0): write 1 move R gt 4
+(4, 1): write 0 move R gt 1
+
+# 4 state lua
+
+# 4 state actual
+{
+
+(1, 0): write 1 move R gt 2
+(1, 1): write 1 move L gt 2
+(2, 0): write 1 move L gt 1
+(2, 1): write 0 move L gt 3
+(3, 0): write l move - gt 4
+(3, 1): write 1 move L gt 4
+(4, 0): write 1 move R gt 4
+(4, 1): write 0 move R gt 1
+}
+
+
+# 4 state alternet
+
+def 1: 
+    if 0:
+        write 1 
+        move R gt 2
+    if 1 write 1 move L gt 2
+
+def 2: 
+    if 0 write 1 move L gt 1
+    if 1 write 0 move L gt 3
+
+def 3: 
+    if 0 write l move - gt 4
+    if 1 write 1 move L gt 4
+
+def 4: 
+    if 0 write 1 move R gt 4
+    if 1 write 0 move R gt 1
+
+
+
+
+(4, 0): write 1 move R gt 4
+(4, 1): write 0 move R gt 1
+
+
+# 4 state busy beaver
+	   '0'	   write 1'
+1	write move R,2	write move L,2
+2	write move L,1	'0',L,3
+3	write move N,0	write move L,4
+4	'move R,4	'0',R,1
+
+
+def halt \\ state def
+
+    if 0: 
+        write {0, 1}
+        move {R or L}
+        goto [statename]
+    if 1: 
+        write 1 
+        move R 
+        goto (statename)  \\ or halt  
+
+
+def halt: \\ state def
+    if 0: write 0
+    if 1: write 1
+    move {R or L}
+
+        goto [statename]
+    if 1: 
+        write 1 
+        move R 
+        goto (statename)  \\ or halt  
+
+
+def (statename):
+
+
+
+
+    if 1: write 1 move left GoTo 1
+    Left
+    Write Symbol \\ optional, NONE if not specified
+    
+1 \\ end state def to close
+
+
+
+
+\\ keywork: halt, def, left, right, write, goto, if
+\\ def in a keyword
+\\

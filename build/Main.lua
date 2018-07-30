@@ -69,7 +69,7 @@ function doActions()
     --print("finished walk")
     return "complete"
 end
-
+--UXLJ4BJf
 turtle.refuel()
 while true do 
     --os.sleep(10)
@@ -86,15 +86,28 @@ while true do
     -- os.sleep(1)
     -- myTurtle:alignFacing(0, 1)
     -- os.sleep(10)
+    -- next path is of type List
     nextPath = myTurtle:findPath(165, 255)
-    for i=1,nextPath.size-1 do
-        local nextPoint = nextPath:get(i)
-        print("1")
-        print(nextPoint)
-	    myTurtle:moveTo(nextPoint)
-        print("2")
-        print(nextPoint)
+
+    dxs = List()
+    for i=0,nextPath.size-2 do
+        p1 = nextPath:get(i+1)
+        p2 = nextPath:get(i)
+        dxs:add(Vector(p1.x - p2.x, p1.y - p2.y))
     end
+    print("path length: " .. dxs.size)
+    print(dxs)
+    for i=0,dxs.size-1 do
+        local nextDir = dxs:get(i)
+        --print(nextDir)
+        --print("1")
+        --print(nextPoint)
+	    myTurtle:move(nextDir)
+        
+        --print("2")
+        --print(nextPoint)
+    end
+    print("easy peasy")
     sleep(100)
     -- os.sleep(100)
     -- if myTurtle:needsFuel() then

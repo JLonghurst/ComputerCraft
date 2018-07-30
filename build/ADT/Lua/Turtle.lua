@@ -13,26 +13,37 @@ do
       self.x = x
       self.y = y
       self.z = z
-      self.dx = x - oldx
-      self.dy = y - oldy
-      print(self:facingString())
+      self.dir = Vector(x - oldx, y - oldy)
+      print(self.dir)
       print(self:posString())
-    end,
-    facingString = function(self)
-      return "(" .. self.dx .. ", " .. self.dy .. ")"
+      os.sleep(5)
     end,
     posString = function(self)
       return "(" .. self.x .. ", " .. self.y .. ", " .. self.z .. ")"
     end,
     onEachMove = function(self)
-      os:sleep(.5)
-      return print(location .. " Facing: " .. "(" .. self.dx .. ", " .. self.dy .. ")")
+      return print(self.dir:__tostring() .. " : " .. self:posString())
     end,
-    moveTo = function(self, p)
-      local dx = p.x - self.x
-      local dy = p.y - self.y
-      self:alignFacing(dx, dy)
-      return self:forward()
+    move = function(self, direction)
+      assert(self.dir:length() == 1, "invalid length: " .. direction:length())
+      assert(direction:length() == 1, "invalid length: " .. direction:length())
+      if (self.dir:rotate("90") == direction) then
+        self:left()
+        assert(self.dir == direction)
+      else
+        if (self.dir:rotate("270") == direction) then
+          self:right()
+          assert(self.dir == direction)
+        else
+          if (self.dir:rotate("180") == direction) then
+            self:right()
+            self:right()
+            assert(self.dir == direction)
+          end
+        end
+      end
+      self:forward()
+      return 0
     end,
     down = function(self)
       if turtle.down() then
@@ -45,8 +56,8 @@ do
     end,
     forward = function(self)
       if turtle.forward() then
-        self.x = self.x + self.dx
-        self.y = self.y + self.dy
+        self.x = self.x + self.dir.x
+        self.y = self.y + self.dir.y
         self:onEachMove()
         return true
       else
@@ -55,8 +66,8 @@ do
     end,
     back = function(self)
       if turtle.back() then
-        self.x = self.x - self.dx
-        self.y = self.y - self.dy
+        self.x = self.x - self.dir.x
+        self.y = self.y - self.dir.y
         self:onEachMove()
         return true
       else
@@ -65,8 +76,7 @@ do
     end,
     left = function(self)
       if turtle.turnLeft() then
-        self.dx, self.dy = -self.dy, self.dx
-        self:onEachMove()
+        self.dir = self.dir:rotate("90")
         return true
       else
         return false
@@ -74,31 +84,10 @@ do
     end,
     right = function(self)
       if turtle.turnRight() then
-        self.dx, self.dy = self.dy, -self.dx
-        self:onEachMove()
+        self.dir = self.dir:rotate("270")
         return true
       else
         return false
-      end
-    end,
-    alignFacing = function(self, newDx, newDy)
-      local old = Vector(self.dx, self.dy)
-      local new = Vector(newDx, newDy)
-      assert(old:length() == 1)
-      assert(new:length() == 1)
-      if (old:rotate("90") == new) then
-        return self:left()
-      else
-        if (old:rotate("270") == new) then
-          return self:right()
-        else
-          if (old:rotate("180") == new) then
-            self:right()
-            return self:right()
-          else
-            return 0
-          end
-        end
       end
     end,
     findPath = function(self, x, y)

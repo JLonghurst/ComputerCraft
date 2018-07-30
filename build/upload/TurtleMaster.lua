@@ -1,4 +1,4 @@
--- classic map biiiiitch
+-- classic map
 function map(func, array)
   local new_array = {}
   for i,v in ipairs(array) do
@@ -28,10 +28,6 @@ end
 local List
 do
   local _base_0 = {
-    size = function(self)
-      local temp = self.size
-      return temp
-    end,
     empty = function(self)
       return self.size == 0
     end,
@@ -86,7 +82,7 @@ do
     __tostring = function(self)
       local str = "["
       for i = 0, self.size - 1 do
-        local item = self:get(i):str()
+        local item = self:get(i):__tostring()
         str = str .. (i .. ":" .. item .. " ")
         if (i + 1) % 4 == 0 then
           str = str .. "\n"
@@ -234,22 +230,27 @@ do
       return Vector(self.x / scalar, self.y / scalar)
     end,
     __eq = function(self, other)
-      return (self.x == other.x) and (self.y == other.y)
+      local result = (self.x == other.x) and (self.y == other.y)
+      return result
+    end,
+    __tostring = function(self)
+      return "<" .. self.x .. ", " .. self.y .. ">"
     end,
     length = function(self)
       return math.sqrt(self.x * self.x + self.y * self.y)
     end,
     rotate = function(self, str)
-      if str == "90" then
+      if str == "270" then
         return Vector(-self.y, self.x)
       else
         if str == "180" then
           return Vector(-self.x, -self.y)
         else
-          if str == "270" then
-            return Vector(self.y, -self.x)
+          if str == "90" then
+            return Vector(self.y, -self.x)(w)
           else
-            return print("invalid rotation string")
+            print("invalid rotation string")
+            return nil
           end
         end
       end
@@ -299,26 +300,37 @@ do
       self.x = x
       self.y = y
       self.z = z
-      self.dx = x - oldx
-      self.dy = y - oldy
-      print(self:facingString())
+      self.dir = Vector(x - oldx, y - oldy)
+      print(self.dir)
       print(self:posString())
-    end,
-    facingString = function(self)
-      return "(" .. self.dx .. ", " .. self.dy .. ")"
+      os.sleep(5)
     end,
     posString = function(self)
       return "(" .. self.x .. ", " .. self.y .. ", " .. self.z .. ")"
     end,
     onEachMove = function(self)
-      os:sleep(.5)
-      return print(location .. " Facing: " .. "(" .. self.dx .. ", " .. self.dy .. ")")
+      return print(self.dir:__tostring() .. " : " .. self:posString())
     end,
-    moveTo = function(self, p)
-      local dx = p.x - self.x
-      local dy = p.y - self.y
-      self:alignFacing(dx, dy)
-      return self:forward()
+    move = function(self, direction)
+      assert(self.dir:length() == 1, "invalid length: " .. direction:length())
+      assert(direction:length() == 1, "invalid length: " .. direction:length())
+      if (self.dir:rotate("90") == direction) then
+        self:left()
+        assert(self.dir == direction)
+      else
+        if (self.dir:rotate("270") == direction) then
+          self:right()
+          assert(self.dir == direction)
+        else
+          if (self.dir:rotate("180") == direction) then
+            self:right()
+            self:right()
+            assert(self.dir == direction)
+          end
+        end
+      end
+      self:forward()
+      return 0
     end,
     down = function(self)
       if turtle.down() then
@@ -331,8 +343,8 @@ do
     end,
     forward = function(self)
       if turtle.forward() then
-        self.x = self.x + self.dx
-        self.y = self.y + self.dy
+        self.x = self.x + self.dir.x
+        self.y = self.y + self.dir.y
         self:onEachMove()
         return true
       else
@@ -341,8 +353,8 @@ do
     end,
     back = function(self)
       if turtle.back() then
-        self.x = self.x - self.dx
-        self.y = self.y - self.dy
+        self.x = self.x - self.dir.x
+        self.y = self.y - self.dir.y
         self:onEachMove()
         return true
       else
@@ -351,8 +363,7 @@ do
     end,
     left = function(self)
       if turtle.turnLeft() then
-        self.dx, self.dy = -self.dy, self.dx
-        self:onEachMove()
+        self.dir = self.dir:rotate("90")
         return true
       else
         return false
@@ -360,31 +371,10 @@ do
     end,
     right = function(self)
       if turtle.turnRight() then
-        self.dx, self.dy = self.dy, -self.dx
-        self:onEachMove()
+        self.dir = self.dir:rotate("270")
         return true
       else
         return false
-      end
-    end,
-    alignFacing = function(self, newDx, newDy)
-      local old = Vector(self.dx, self.dy)
-      local new = Vector(newDx, newDy)
-      assert(old:length() == 1)
-      assert(new:length() == 1)
-      if (old:rotate("90") == new) then
-        return self:left()
-      else
-        if (old:rotate("270") == new) then
-          return self:right()
-        else
-          if (old:rotate("180") == new) then
-            self:right()
-            return self:right()
-          else
-            return 0
-          end
-        end
       end
     end,
     findPath = function(self, x, y)
@@ -633,9 +623,9 @@ function distance ( x1, y1, x2, y2 )
 end
 
 function getAStarPath ( start, goal )
-	print("finding path using a star...")
-	print(start)
-	print(goal)
+	--print("finding path using a star...")
+	--print(start)
+	--print(goal)
 	if not cachedPaths then cachedPaths = {} end
 	if not cachedPaths [ start ] then
 		cachedPaths [ start ] = {}
@@ -643,7 +633,7 @@ function getAStarPath ( start, goal )
 		return cachedPaths [ start ] [ goal ]
 	end
 	res = a_star ( start, goal )
-	print("path found")
+	--print("path found")
 	--print("a star path: " .. start:str() .. " to " .. goal:str())
 	return res
 end
@@ -719,7 +709,7 @@ function doActions()
     --print("finished walk")
     return "complete"
 end
-
+--UXLJ4BJf
 turtle.refuel()
 while true do 
     --os.sleep(10)
@@ -736,15 +726,28 @@ while true do
     -- os.sleep(1)
     -- myTurtle:alignFacing(0, 1)
     -- os.sleep(10)
+    -- next path is of type List
     nextPath = myTurtle:findPath(165, 255)
-    for i=1,nextPath.size-1 do
-        local nextPoint = nextPath:get(i)
-        print("1")
-        print(nextPoint)
-	    myTurtle:moveTo(nextPoint)
-        print("2")
-        print(nextPoint)
+
+    dxs = List()
+    for i=0,nextPath.size-2 do
+        p1 = nextPath:get(i+1)
+        p2 = nextPath:get(i)
+        dxs:add(Vector(p1.x - p2.x, p1.y - p2.y))
     end
+    print("path length: " .. dxs.size)
+    print(dxs)
+    for i=0,dxs.size-1 do
+        local nextDir = dxs:get(i)
+        --print(nextDir)
+        --print("1")
+        --print(nextPoint)
+	    myTurtle:move(nextDir)
+        
+        --print("2")
+        --print(nextPoint)
+    end
+    print("easy peasy")
     sleep(100)
     -- os.sleep(100)
     -- if myTurtle:needsFuel() then

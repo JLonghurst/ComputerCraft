@@ -19,34 +19,44 @@ class Turtle
         @x = x
         @y = y
         @z = z 
-        @dx = x - oldx
-        @dy = y - oldy
-        print(@facingString())
+        @dir = Vector(x - oldx, y - oldy)
+        --@facing = dir\toFacing()
+        --print("facing: " .. @facing)
+        print(@dir)
         print(@posString())
-
-        
+        os.sleep(5)
         return
 
-    facingString: =>
-        return "("..@dx..", "..@dy..")"
+    --facingString: =>
+        --return "("..@dir.x..", "..@dir.y..")"
     
     posString: =>
         return "("..@x..", "..@y..", "..@z..")"
 
 
     onEachMove: =>
-        os\sleep(.5)
+        print(@dir\__tostring() .. " : " .. @posString())
+        --print(@dir)
         --location = "position: ("..@x..", "..@y..", "..@z..")"
-        print(location.." Facing: ".."("..@dx..", "..@dy..")")
+        --print(location.." Facing: ".."("..@dir.x..", "..@dir.y..")")
 
-    -- p must be of type point
-    moveTo: (p) =>
-        --print(p)
-        dx = p.x - @x
-        dy = p.y - @y
-        @alignFacing(dx, dy)
-        @forward()
-
+    -- direction is a vector with length 1
+    move: (direction) =>
+        assert(@dir\length() == 1, "invalid length: " .. direction\length())
+        assert(direction\length() == 1, "invalid length: " .. direction\length())
+        if (@dir\rotate("90") == direction) then
+            @left()
+            assert(@dir == direction)
+        else if (@dir\rotate("270") == direction) then
+            @right()
+            assert(@dir == direction)
+        else if (@dir\rotate("180") == direction) then
+            @right()
+            @right()
+            assert(@dir == direction)
+        @forward()   
+        return 0
+        
     down: =>
         if turtle.down() then
             @z = @z - 1
@@ -57,8 +67,8 @@ class Turtle
 
     forward: =>
         if turtle.forward() then
-            @x += @dx
-            @y += @dy
+            @x += @dir.x
+            @y += @dir.y
             @onEachMove()
             return true
         else
@@ -66,8 +76,8 @@ class Turtle
 
     back: =>
         if turtle.back() then
-            @x -= @dx
-            @y -= @dy
+            @x -= @dir.x
+            @y -= @dir.y
             @onEachMove()
             return true
         else
@@ -75,40 +85,20 @@ class Turtle
     
     left: => 
         if turtle.turnLeft() then
-            @dx, @dy = -@dy, @dx
-            @onEachMove()
+            @dir = @dir\rotate("90")
             return true
         else
 		    return false
 
     right: => 
         if turtle.turnRight() then
-            @dx, @dy = @dy, -@dx
-            @onEachMove()
+            @dir = @dir\rotate("270")
             return true
         else
 		    return false
-    
-    alignFacing: (newDx, newDy) =>
-        --print("orig: ".. @dx .. " " .. @dy)
-        --print("new: " ..newDx .. " " .. newDy)
-        old = Vector(@dx, @dy)
-        new = Vector(newDx, newDy)
-        assert(old\length() == 1)
-        assert(new\length() == 1)
-        if (old\rotate("90") == new) then
-            @left()
-        else if (old\rotate("270") == new) then
-            @right()
-        else if (old\rotate("180") == new) then
-            @right()
-            @right()
-        else -- else they are equal so do nothing
-            return 0
         
     -- Finds and returns a path to the x and y location
     findPath: (x, y) =>
-        
         start = Point(@x,@y)
         goal = Point(x, y)
         path = getAStarPath(start, goal)
