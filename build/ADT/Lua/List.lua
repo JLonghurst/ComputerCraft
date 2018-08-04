@@ -9,13 +9,13 @@ do
       self.size = self.size + 1
     end,
     remove = function(self, ele)
-      local index = indexOf(ele)
+      local index = self:indexOf(ele)
       if index ~= (-1) then
         return self:removeAt(index)
       end
     end,
     contains = function(self, ele)
-      return indexOf(ele) ~= -1
+      return self:indexOf(ele) ~= -1
     end,
     pop = function(self, bool)
       if bool then

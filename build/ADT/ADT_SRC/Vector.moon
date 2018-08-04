@@ -36,7 +36,7 @@ class Vector
         else if str == "180" then
             return Vector(-@x, -@y)
         else if str == "90" then
-            return Vector(@y, -@x)w
+            return Vector(@y, -@x)
         else 
             print("invalid rotation string")
             return nil

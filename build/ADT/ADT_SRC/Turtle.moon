@@ -72,6 +72,7 @@ class Turtle
             @onEachMove()
             return true
         else
+            print "fuck a wall"
             return false
 
     back: =>
@@ -110,5 +111,48 @@ class Turtle
 
     magnitude: (x, y) =>
         return math.sqrt(math.pow(x, 2) + math.pow(y, 2))
+
+    chat: () =>
+        chatStack = List()
+        key = nil
+        while (not (key == keys.q)) do
+            term.clear() -- reset display
+            term.setCursorPos(1,1) -- point to top of cpu
+            --print(chatStack:size())
+            print("you are now in chat!")
+            print()
+            --chatStack:print()
+            curChat = @chatTree
+            -- walk down chat stack to correct location
+            i = 0
+            for i=0,(chatStack.size - 1) do 
+                --print(chatStack\get(i)) 
+                curChat = curChat[chatStack\get(i)]
+
+            -- print all of the text
+            for _,line in pairs(curChat.text) do 
+                print(line)
+            -- print macro keys
+            print()
+            print("(b): back, (q): quit chatting")
+            -- create valid key list with special back: "b" and quit: "q" keys
+            valid = List() 
+            valid\add(keys.b) 
+            valid\add(keys.q)
+            for k,_ in pairs(curChat) do
+                valid\add(k) -- add possible transitions from this state to valid keys
+            -- get the next key the user enters
+            key = getNextValidKey(valid)
+            if (key == keys.b) then -- go back case
+                if (chatStack\empty()) then
+                    key = keys.q -- leave chat if already in front
+                else
+                    chatStack\pop(true) -- go up one level in dialoge, remove the element
+            elseif not (key == keys.q) then
+                -- go inside next dialoge level
+                chatStack\add(key) 
+        -- user entered the exit key
+        print("exiting chat")
+        return
 
 TURTLE_WORKS = 0

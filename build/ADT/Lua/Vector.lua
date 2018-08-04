@@ -31,7 +31,7 @@ do
           return Vector(-self.x, -self.y)
         else
           if str == "90" then
-            return Vector(self.y, -self.x)(w)
+            return Vector(self.y, -self.x)
           else
             print("invalid rotation string")
             return nil

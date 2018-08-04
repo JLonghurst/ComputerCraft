@@ -21,6 +21,8 @@ function waitOnC()
     return 0
 end
 
+
+
 local myTurtle = Turtle({
     text = {
     "...Quantum physiciality checked....",
@@ -56,6 +58,12 @@ local myTurtle = Turtle({
     }
 })
 
+function checkForC()
+    local event, key = os.pullEvent("key")
+    if (key == keys.c) then
+        myTurtle:chat()
+    end
+end
 
 function doActions()
     myTurtle:forward()
@@ -103,7 +111,7 @@ while true do
         --print("1")
         --print(nextPoint)
 	    myTurtle:move(nextDir)
-        
+        --checkForC()
         --print("2")
         --print(nextPoint)
     end
