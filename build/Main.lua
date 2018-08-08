@@ -72,20 +72,6 @@ end
 --UXLJ4BJf
 turtle.refuel()
 while true do 
-    --os.sleep(10)
-    -- print("start: " .. myTurtle:facingString())
-    -- myTurtle:alignFacing(1, 0)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, 1)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(-1, 0)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, 1)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, -1)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, 1)
-    -- os.sleep(10)
     -- next path is of type List
     nextPath = myTurtle:findPath(165, 255)
 
@@ -108,7 +94,13 @@ while true do
         --print(nextPoint)
     end
     print("easy peasy")
+
+    -- server testing 
+    print("sending data to the server...")
+    rednet.broadcast("hey server this is jerry!")
+    print("sent some bull shit")
     sleep(100)
+    
     -- os.sleep(100)
     -- if myTurtle:needsFuel() then
     --     print("running low champ: " .. turtle.getFuelLevel()) 
