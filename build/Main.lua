@@ -23,13 +23,13 @@ end
 
 local myTurtle = Turtle({
     text = {
-    "...Quantum physiciality checked....",
-    "...Steve detected...",
-    "",
-    "(a) Quantum physiciality?",   
-    "(s) The reactor is looking nice", 
-    "(d) What are you doing?",    
-    "(f) What is this place?"   
+        "...Quantum physiciality checked....",
+        "...Steve detected...",
+        "",
+        "(a) Quantum physiciality?",   
+        "(s) The reactor is looking nice", 
+        "(d) What are you doing?",    
+        "(f) What is this place?"   
     },
     [keys.a] = {
         text = {"QUANTUM"}
@@ -42,13 +42,13 @@ local myTurtle = Turtle({
     },
     [keys.f] = {
         text = {
-        "This is Turtle Nation. The Steve that",
-        "they call hackobster said he made it.",
-        "im not too sure, I just really like ",
-        "reactors for some reason",
-        "",
-        "(a) You only like reactors because steve programmed",
-        "you to like reactors"
+            "This is Turtle Nation. The Steve that",
+            "they call hackobster said he made it.",
+            "im not too sure, I just really like ",
+            "reactors for some reason",
+            "",
+            "(a) You only like reactors because steve programmed",
+            "you to like reactors"
         },
         [keys.a] = {
             text={"WHOA DEEP BRUH"}
