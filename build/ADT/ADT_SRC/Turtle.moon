@@ -27,8 +27,18 @@ class Turtle
         os.sleep(5)
         return
 
-    --facingString: =>
-        --return "("..@dir.x..", "..@dir.y..")"
+    needsFuel: =>
+        return turtle.getFuelLevel() < @fuelMin
+
+    beforeEachMove: =>
+        print("IM ABOUT TO MOVE")
+        if @needsFuel() then
+            print("needs fuel")
+            @setPositionGoal(10, 10)
+    
+    setPositionGoal: (x, y) =>
+        print("position goal function")
+        print(x .. ", " .. y)
     
     posString: =>
         return "("..@x..", "..@y..", "..@z..")"
@@ -66,6 +76,7 @@ class Turtle
             return false
 
     forward: =>
+        @beforeMove()
         if turtle.forward() then
             @x += @dir.x
             @y += @dir.y
@@ -76,6 +87,7 @@ class Turtle
             return false
 
     back: =>
+        @beforeEachMove()
         if turtle.back() then
             @x -= @dir.x
             @y -= @dir.y
