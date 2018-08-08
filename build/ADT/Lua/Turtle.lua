@@ -61,6 +61,7 @@ do
         self:onEachMove()
         return true
       else
+        print("fuck a wall")
         return false
       end
     end,
@@ -102,6 +103,43 @@ do
     end,
     magnitude = function(self, x, y)
       return math.sqrt(math.pow(x, 2) + math.pow(y, 2))
+    end,
+    chat = function(self)
+      local chatStack = List()
+      local key = nil
+      while (not (key == keys.q)) do
+        term.clear()
+        term.setCursorPos(1, 1)
+        print("you are now in chat!")
+        print()
+        local curChat = self.chatTree
+        local i = 0
+        for i = 0, (chatStack.size - 1) do
+          curChat = curChat[chatStack:get(i)]
+        end
+        for _, line in pairs(curChat.text) do
+          print(line)
+        end
+        print()
+        print("(b): back, (q): quit chatting")
+        local valid = List()
+        valid:add(keys.b)
+        valid:add(keys.q)
+        for k, _ in pairs(curChat) do
+          valid:add(k)
+        end
+        key = getNextValidKey(valid)
+        if (key == keys.b) then
+          if (chatStack:empty()) then
+            key = keys.q
+          else
+            chatStack:pop(true)
+          end
+        elseif not (key == keys.q) then
+          chatStack:add(key)
+        end
+      end
+      print("exiting chat")
     end
   }
   _base_0.__index = _base_0

@@ -16,12 +16,12 @@ class List
         @size += 1
 
     remove: (ele) =>
-        index = indexOf(ele)
+        index = @indexOf(ele)
         if index ~= (-1) then
             return @removeAt(index)
 
     contains: (ele) =>
-        indexOf(ele) ~= -1
+        @indexOf(ele) ~= -1
     
     pop: (bool) =>
         if bool then

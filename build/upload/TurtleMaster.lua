@@ -36,13 +36,13 @@ do
       self.size = self.size + 1
     end,
     remove = function(self, ele)
-      local index = indexOf(ele)
+      local index = self:indexOf(ele)
       if index ~= (-1) then
         return self:removeAt(index)
       end
     end,
     contains = function(self, ele)
-      return indexOf(ele) ~= -1
+      return self:indexOf(ele) ~= -1
     end,
     pop = function(self, bool)
       if bool then
@@ -247,7 +247,7 @@ do
           return Vector(-self.x, -self.y)
         else
           if str == "90" then
-            return Vector(self.y, -self.x)(w)
+            return Vector(self.y, -self.x)
           else
             print("invalid rotation string")
             return nil
@@ -348,6 +348,7 @@ do
         self:onEachMove()
         return true
       else
+        print("fuck a wall")
         return false
       end
     end,
@@ -389,6 +390,43 @@ do
     end,
     magnitude = function(self, x, y)
       return math.sqrt(math.pow(x, 2) + math.pow(y, 2))
+    end,
+    chat = function(self)
+      local chatStack = List()
+      local key = nil
+      while (not (key == keys.q)) do
+        term.clear()
+        term.setCursorPos(1, 1)
+        print("you are now in chat!")
+        print()
+        local curChat = self.chatTree
+        local i = 0
+        for i = 0, (chatStack.size - 1) do
+          curChat = curChat[chatStack:get(i)]
+        end
+        for _, line in pairs(curChat.text) do
+          print(line)
+        end
+        print()
+        print("(b): back, (q): quit chatting")
+        local valid = List()
+        valid:add(keys.b)
+        valid:add(keys.q)
+        for k, _ in pairs(curChat) do
+          valid:add(k)
+        end
+        key = getNextValidKey(valid)
+        if (key == keys.b) then
+          if (chatStack:empty()) then
+            key = keys.q
+          else
+            chatStack:pop(true)
+          end
+        elseif not (key == keys.q) then
+          chatStack:add(key)
+        end
+      end
+      print("exiting chat")
     end
   }
   _base_0.__index = _base_0
@@ -661,6 +699,8 @@ function waitOnC()
     return 0
 end
 
+
+
 local myTurtle = Turtle({
     text = {
     "...Quantum physiciality checked....",
@@ -696,6 +736,12 @@ local myTurtle = Turtle({
     }
 })
 
+function checkForC()
+    local event, key = os.pullEvent("key")
+    if (key == keys.c) then
+        myTurtle:chat()
+    end
+end
 
 function doActions()
     myTurtle:forward()
@@ -727,7 +773,7 @@ while true do
     -- myTurtle:alignFacing(0, 1)
     -- os.sleep(10)
     -- next path is of type List
-    nextPath = myTurtle:findPath(165, 255)
+    nextPath = myTurtle:findPath(416, 793)
 
     dxs = List()
     for i=0,nextPath.size-2 do
@@ -743,7 +789,7 @@ while true do
         --print("1")
         --print(nextPoint)
 	    myTurtle:move(nextDir)
-        
+        --checkForC()
         --print("2")
         --print(nextPoint)
     end
