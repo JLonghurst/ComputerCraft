@@ -21,17 +21,15 @@ function waitOnC()
     return 0
 end
 
-
-
 local myTurtle = Turtle({
     text = {
-    "...Quantum physiciality checked....",
-    "...Steve detected...",
-    "",
-    "(a) Quantum physiciality?",   
-    "(s) The reactor is looking nice", 
-    "(d) What are you doing?",    
-    "(f) What is this place?"   
+        "...Quantum physiciality checked....",
+        "...Steve detected...",
+        "",
+        "(a) Quantum physiciality?",   
+        "(s) The reactor is looking nice", 
+        "(d) What are you doing?",    
+        "(f) What is this place?"   
     },
     [keys.a] = {
         text = {"QUANTUM"}
@@ -44,13 +42,13 @@ local myTurtle = Turtle({
     },
     [keys.f] = {
         text = {
-        "This is Turtle Nation. The Steve that",
-        "they call hackobster said he made it.",
-        "im not too sure, I just really like ",
-        "reactors for some reason",
-        "",
-        "(a) You only like reactors because steve programmed",
-        "you to like reactors"
+            "This is Turtle Nation. The Steve that",
+            "they call hackobster said he made it.",
+            "im not too sure, I just really like ",
+            "reactors for some reason",
+            "",
+            "(a) You only like reactors because steve programmed",
+            "you to like reactors"
         },
         [keys.a] = {
             text={"WHOA DEEP BRUH"}
@@ -80,26 +78,11 @@ end
 --UXLJ4BJf
 turtle.refuel()
 while true do 
-    --os.sleep(10)
-    -- print("start: " .. myTurtle:facingString())
-    -- myTurtle:alignFacing(1, 0)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, 1)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(-1, 0)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, 1)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, -1)
-    -- os.sleep(1)
-    -- myTurtle:alignFacing(0, 1)
-    -- os.sleep(10)
     -- next path is of type List
     nextPath = myTurtle:findPath(165, 255)
-
     dxs = List()
     for i=0,nextPath.size-2 do
-        p1 = nextPath:get(i+1)
+        p1 = nextPath:get(i + 1)
         p2 = nextPath:get(i)
         dxs:add(Vector(p1.x - p2.x, p1.y - p2.y))
     end
@@ -117,6 +100,10 @@ while true do
         --print(nextPoint)
     end
     print("easy peasy")
+    -- server testing 
+    print("sending data to the server...")
+    rednet.broadcast("hey server this is jerry!")
+    print("sent some bull shit")
     sleep(100)
     -- os.sleep(100)
     -- if myTurtle:needsFuel() then
