@@ -18,7 +18,6 @@ class QueueList
     lookFront: =>
         return @array[@head+1]
 
-
     removeFront: =>
         if @is_empty() then 
             return nil 
@@ -36,16 +35,12 @@ class QueueList
         @array[@head] = nil
         return r
 
-
     rotate_right: (n) => 
         n or= 1
         if @is_empty() then 
             return nil 
         for i=1,n do @push_left(@pop_right()) 
         return
-
-        
-
 
     rotate_left: (n) => 
         n or= 1
@@ -55,43 +50,27 @@ class QueueList
             @push_right(@pop_left())
         return
 
-    _remove_at_internal: => {idx)
+    _remove_at_internal: (idx) =>
         for i=idx, @tail do 
             @array[i] = @array[i+1] 
         @tail = @tail - 1
 
-
-    remove_right: => (x)
-        for i=@tail,@head+1,-1 do
-        if @array[i] == x then
-            _remove_at_internal(@array, i)
-            return true
+    remove_right: (x) =>
+        for i= @tail, @head+1
+            if @array[i] == x then
+                _remove_at_internal(@array, i)
+                return true
         return false
 
-    remove_left: => (x)
-        for i=@head+1,@tail do
-        if @array[i] == x then
-            _remove_at_internal(@array, i)
-            return true
+    remove_left: (x) => 
+        for i= @head+1, @tail
+            if @array[i] == x then
+                _remove_at_internal(@array, i)
+                return true
         return false
-
 
     length: =>
         return @tail - @head
 
     is_empty: =>
         return @length() == 0
-
-    iter_right: =>
-    i = @tail+1
-    return function()
-    if i > @head+1 then
-        i = i-1
-        return @array[i]
-        
-    iter_left: =>
-    i = @head
-    return function()
-    if i < @tail then
-        i = i+1
-        return @array[i]

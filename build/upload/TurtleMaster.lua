@@ -13,7 +13,7 @@ function filter(func, tbl)
     local newtbl= {}
     for i,v in pairs(tbl) do
         if func(v) then
-        newtbl[i]=v
+          newtbl[i] = v
         end
     end
     return newtbl
@@ -649,12 +649,6 @@ end
 ----------------------------------------------------------------
 -- exposed functions
 ----------------------------------------------------------------
-
-function clear_cached_paths ()
-
-	cachedPaths = nil
-end
-
 function distance ( x1, y1, x2, y2 )
 	
 	return dist ( x1, y1, x2, y2 )
@@ -773,7 +767,7 @@ while true do
     -- myTurtle:alignFacing(0, 1)
     -- os.sleep(10)
     -- next path is of type List
-    nextPath = myTurtle:findPath(416, 793)
+    nextPath = myTurtle:findPath(165, 255)
 
     dxs = List()
     for i=0,nextPath.size-2 do
@@ -781,6 +775,7 @@ while true do
         p2 = nextPath:get(i)
         dxs:add(Vector(p1.x - p2.x, p1.y - p2.y))
     end
+    
     print("path length: " .. dxs.size)
     print(dxs)
     for i=0,dxs.size-1 do

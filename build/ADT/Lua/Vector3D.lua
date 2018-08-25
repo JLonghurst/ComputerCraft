@@ -2,9 +2,11 @@ local Vector3D
 do
   local _base_0 = {
     __add = function(self, o)
+      assert(type(o) == Vector3D)
       return Vector3D(o.x + self.x, o.y + self.y, o.z + self.z)
     end,
     __sub = function(self, o)
+      assert(type(o) == Vector3D)
       return Vector3D(self.x - o.x, self.y - o.y, self.z - o.z)
     end,
     __mul = function(self, scalar)
@@ -14,7 +16,11 @@ do
       return Vector3D(self.x / scalar, self.y / scalar, self.z / scalar)
     end,
     __eq = function(self, o)
-      return (self.x == o.x) and (self.y == o.y) and (self.z == o.z)
+      if (type(o) ~= Vector3D) then
+        return false
+      else
+        return (self.x == o.x) and (self.y == o.y) and (self.z == o.z)
+      end
     end,
     __tostring = function(self)
       return "<" .. self.x .. ", " .. self.y .. ", " .. self.z .. ">"

@@ -103,6 +103,7 @@ while true do
         p2 = nextPath:get(i)
         dxs:add(Vector(p1.x - p2.x, p1.y - p2.y))
     end
+    
     print("path length: " .. dxs.size)
     print(dxs)
     for i=0,dxs.size-1 do

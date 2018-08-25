@@ -5,10 +5,11 @@ class Vector3D
         @z = z
     
     __add: (o) =>
+        assert type(o) == Vector3D
         return Vector3D(o.x + @x, o.y + @y, o.z + @z)        
     
-    --assumes v is of type o
     __sub: (o) =>
+        assert type(o) == Vector3D
         return Vector3D(@x - o.x, @y - o.y, @z - o.z)
     
     __mul: (scalar) =>
@@ -18,7 +19,10 @@ class Vector3D
         return Vector3D(@x / scalar, @y / scalar, @z / scalar)
     
     __eq: (o) =>
-        return (@x == o.x) and (@y == o.y) and (@z == o.z)
+        if (type(o) != Vector3D) then
+            return false
+        else 
+            return (@x == o.x) and (@y == o.y) and (@z == o.z)
 
     __tostring: =>
         return "<"..@x..", "..@y..", "..@z..">"
