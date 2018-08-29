@@ -77,8 +77,11 @@ function doActions()
 end
 --UXLJ4BJf
 turtle.refuel()
+local modem = peripheral.wrap("right")
+
+rednet.open("right")
 while true do 
-    -- next path is of type List
+    -- next path is of type L
     nextPath = myTurtle:findPath(165, 255)
     dxs = List()
     for i=0,nextPath.size-2 do
@@ -90,19 +93,30 @@ while true do
     print("path length: " .. dxs.size)
     print(dxs)
     for i=0,dxs.size-1 do
-        local nextDir = dxs:get(i)
-        --print(nextDir)
-        --print("1")
-        --print(nextPoint)
-	    myTurtle:move(nextDir)
-        --checkForC()
-        --print("2")
-        --print(nextPoint)
+        local test = "fuck me bro"
+        rednet.send(1, test)
+	    myTurtle:move(dxs:get(i))
+    end
+    print("easy peasy")
+
+
+
+    nextPath = myTurtle:findPath(180, 259)
+    dxs = List()
+    for i=0,nextPath.size-2 do
+        p1 = nextPath:get(i + 1)
+        p2 = nextPath:get(i)
+        dxs:add(Vector(p1.x - p2.x, p1.y - p2.y))
+    end
+
+    print("path length: " .. dxs.size)
+    print(dxs)
+    for i=0,dxs.size-1 do
+        rednet.send(1, "fuck you bro")
+	    myTurtle:move(dxs:get(i))
     end
     print("easy peasy")
     -- server testing 
-    print("sending data to the server...")
-    rednet.broadcast("hey server this is jerry!")
     print("sent some bull shit")
     sleep(100)
     -- os.sleep(100)

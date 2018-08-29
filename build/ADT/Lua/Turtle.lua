@@ -18,6 +18,20 @@ do
       print(self:posString())
       os.sleep(5)
     end,
+    needsFuel = function(self)
+      return turtle.getFuelLevel() < self.fuelMin
+    end,
+    beforeEachMove = function(self)
+      print("IM ABOUT TO MOVE")
+      if self:needsFuel() then
+        print("needs fuel")
+        return self:setPositionGoal(10, 10)
+      end
+    end,
+    setPositionGoal = function(self, x, y)
+      print("position goal function")
+      return print(x .. ", " .. y)
+    end,
     posString = function(self)
       return "(" .. self.x .. ", " .. self.y .. ", " .. self.z .. ")"
     end,

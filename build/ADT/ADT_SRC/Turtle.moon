@@ -76,7 +76,7 @@ class Turtle
             return false
 
     forward: =>
-        @beforeMove()
+        --@beforeEachMove()
         if turtle.forward() then
             @x += @dir.x
             @y += @dir.y
@@ -87,7 +87,7 @@ class Turtle
             return false
 
     back: =>
-        @beforeEachMove()
+        --@beforeEachMove()
         if turtle.back() then
             @x -= @dir.x
             @y -= @dir.y

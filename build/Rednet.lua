@@ -4,33 +4,48 @@ for k, v in pairs(methods) do
     print(v)
 end
 
+local wireless_client = peripheral.wrap("top")
+
+
 local monitor = peripheral.wrap("left")
 if monitor then
     -- test it's connection
+    monitor.clear()
     monitor.write("Hello World!")
-    os.sleep(5)
+    monitor.scroll(2)
 end
 
 -- connect to the rednet port
 rednet.open("top")
-if rednet then
+if modem then
+    -- global state
+    local Y = 1
+    local X = 1
+    local TIME = 0
+    -- AayuSCwL
     while true do
         -- open the log file for appending
-        local logFile = fs.open("first_log", "a")
+        --local logFile = fs.open("first_log", "a")
         -- wait for a message
-        local data = rednet.receive(2)
-        if data then
+        monitor.setCursorPos(X, Y)
+        local scanTimeout = 1
+        monitor.write( TIME..": no data, scanning...")
+        local event, senderID, message = os.pullEvent("rednet_receive")
+        print(event)
+        print(senderID)
+        print(message)
+        TIME = TIME + scanTimeout
+        if message then
             -- handle message
-            monitor.clear()
-            monitor.setCursorPos(1, 1)
-            monitor.write(data.message)
-            logFile.write(data.message)
+            monitor.write(TIME.. ": RECEIVED => "..message)
             print("wrote data to monitor")
-        else 
+        else
             -- log no message found
-            print("no data, scanning...")
+            monitor.write( TIME..": no data, scanning...")
+            print(TIME.."no data, scanning...")
         end
-        logFile.close()
+        --Y = Y + 1
+        Y = math.fmod(Y+1,27)
+        --logFile.close()
     end
 end
-
