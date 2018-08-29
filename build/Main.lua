@@ -94,12 +94,10 @@ while true do
     print(dxs)
     for i=0,dxs.size-1 do
         local test = "fuck me bro"
-        rednet.send(1, test)
+        rednet.broadcast(test)
 	    myTurtle:move(dxs:get(i))
     end
     print("easy peasy")
-
-
 
     nextPath = myTurtle:findPath(180, 259)
     dxs = List()
@@ -112,7 +110,7 @@ while true do
     print("path length: " .. dxs.size)
     print(dxs)
     for i=0,dxs.size-1 do
-        rednet.send(1, "fuck you bro")
+        rednet.broadcast("fuck you bro")
 	    myTurtle:move(dxs:get(i))
     end
     print("easy peasy")
