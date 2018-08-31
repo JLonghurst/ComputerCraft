@@ -124,12 +124,12 @@ function getAStarPath ( start, goal )
 	--print(start)
 	--print(goal)
 	if not cachedPaths then cachedPaths = {} end
-	if not cachedPaths [ start ] then
-		cachedPaths [ start ] = {}
-	elseif cachedPaths [ start ] [ goal ] then
-		return cachedPaths [ start ] [ goal ]
+	if not cachedPaths[start] then
+		cachedPaths [start] = {}
+	elseif cachedPaths[start][goal] then
+		return cachedPaths[start][goal]
 	end
-	res = a_star ( start, goal )
+	res = a_star (start, goal)
 	--print("path found")
 	--print("a star path: " .. start:str() .. " to " .. goal:str())
 	return res

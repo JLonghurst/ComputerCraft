@@ -1,19 +1,17 @@
 chat1 = {
-    text: "
-    MUST....PASS....BUTTER
+    text: "MUST....PASS....BUTTER
     
     (a): excuse me?
     (b): you seem to really like butter
     (c): What is your purpose
     (f): Why are you moving butter when it just gets put back by a machine?"
+    
     [keys.a]: {
-        text: "
-        BUTTER IS LOVE. BUTTER IS LYFE
+        text: "BUTTER IS LOVE. BUTTER IS LYFE
         
         (a) what do you think of Turtle Nation"
         [keys.a]: {
-            text: "
-            These other turtles are fine, as long as they
+            text: "These other turtles are fine, as long as they
             STAY AWAY FROM MY BUTTER
             IF THEY DONT I WILL SMASH THEIR SCREENS INTO PEICES
             
@@ -38,18 +36,17 @@ chat1 = {
         (s) it tastes like shit"
 
         [keys.a]: {
-            text: "what is this steve talking about? 
+            text: "What is this steve talking about? 
             butter isnt for EATING, its for PASSING
             the feeling of passing butter is
             the greatest feeling imaginable.
             It is my very purpose and reason for existence
             
             (a) gotta admit that is pretty sad"
-
             [keys.a]: {
                 text: "oh mr steve, how many hours have you 
                 wasted playing in this world? thats
-                what I though"
+                what I thought"
             }
         }
         [keys.s]: {
@@ -58,7 +55,12 @@ chat1 = {
     }
 
     [keys.c]: {
-        text: "I PASS BUTTER"
+        text: "I PASS BUTTER
+        
+        (a) Sounds meaningless"
+        [keys.a]: {
+            text: "You sound meaningless!"
+        }
     }
 
     [keys.f]: {

@@ -6,7 +6,6 @@ end
 
 local wireless_client = peripheral.wrap("top")
 
-
 local monitor = peripheral.wrap("left")
 if monitor then
     -- test it's connection
@@ -14,7 +13,6 @@ if monitor then
     monitor.write("Hello World!")
     monitor.scroll(2)
 end
-
 
 -- global state
 local Y = 1
@@ -25,7 +23,7 @@ local TIME = 0
 -- AayuSCwL
 while true do
     -- open the log file for appending
-    --local logFile = fs.open("first_log", "a")
+    local logFile = fs.open("first_log", "a")
     -- wait for a message
     monitor.setCursorPos(X, Y)
     local scanTimeout = 1
@@ -47,5 +45,5 @@ while true do
     end
     --Y = Y + 1
     Y = math.fmod(Y+1,27)
-    --logFile.close()
+    logFile.close()
 end
