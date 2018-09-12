@@ -1,5 +1,6 @@
 local Turtle
 do
+  local _class_0
   local _base_0 = {
     setPosAndFacing = function(self)
       local oldx, oldz, oldy = gps.locate(5, false)
@@ -39,8 +40,6 @@ do
       return print(self.dir:__tostring() .. " : " .. self:posString())
     end,
     move = function(self, direction)
-      assert(self.dir:length() == 1, "invalid length: " .. direction:length())
-      assert(direction:length() == 1, "invalid length: " .. direction:length())
       if (self.dir:rotate("90") == direction) then
         self:left()
         assert(self.dir == direction)
@@ -157,7 +156,7 @@ do
     end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self, tree)
       self:setPosAndFacing()
       self.fuelMin = 5

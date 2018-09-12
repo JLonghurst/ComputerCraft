@@ -1,3 +1,78 @@
+local butterChatTree = {
+    text = {
+        "MUST....PASS....BUTTER",
+        "",
+        "(a) Excuse me?",   
+        "(s) You seem to really like butter", 
+        "(d) What is your purpose",
+        "(f) Why are you moving butter when it just gets put back by a machine?"
+    },
+    [keys.a] = {
+        text = {
+            "BUTTER IS LOVE. BUTTER IS LYFE",
+            "",
+            "(a) what do you think of Turtle Nation"
+        },
+        [keys.a] = {
+            text = {
+                "These other turtles are fine, as long as they",
+                "STAY AWAY FROM MY BUTTER",
+                "IF THEY DONT I WILL SMASH THEIR SCREENS INTO PEICES",
+                "",
+                "(a) Awfully agressive",
+                "(s) Fuck yeah turtles are useless"
+            },
+            [keys.a] = {
+                text = {
+                    "DONT FUCK WITH MY BUTTER"
+                }
+            },
+            [keys.s] = {
+                text = {
+                    "yeah im glad im a butter collector and not",
+                    "one of those bitch ass turtles"
+                }
+            }
+        }
+    },
+    [keys.s] = {
+        text = {
+            "That is because BUTTER IS AMAZING",
+            "SO FLUFFY, SO YELLOW, SO FULL OF SALT FAT!",
+            "What isnt there to like about butter?",
+            "",
+            "(a) Butter is not super heathy to eat?"
+        },
+        [keys.a] = {
+            text = {
+                "what is this steve talking about?",
+                "butter isnt for EATING, its for PASSING",
+                "the feeling of passing butter is",
+                "the greatest feeling imaginable.",
+                "It is my very purpose and reason for existence",
+                "",
+                "(a) gotta admit that is pretty sad"
+            },
+            [keys.a] = {
+                "oh mr steve, how many hours have you",
+                "wasted playing in this world?",
+                "thats what I thought"
+            }
+        }
+    },
+    [keys.d] = {
+        text = {
+            "I PASS BUTTER"
+        }
+    },
+    [keys.f] = {
+        text = {
+            "It doesnt get put back, the holy butter gods produce",
+            "Sweet butter juice from the eather and it is",
+            "Materialized in front of me"
+        }
+    }
+}
 
 -- assumes that validKeys is a list of keys.x, where x 
 -- is a valid pressable key
@@ -63,26 +138,16 @@ function checkForC()
     end
 end
 
-function doActions()
-    myTurtle:forward()
-    myTurtle:left()
-    myTurtle:forward()
-    myTurtle:left()
-    myTurtle:forward()
-    myTurtle:left()
-    myTurtle:forward()
-    myTurtle:left()
-    --print("finished walk")
-    return "complete"
-end
 --UXLJ4BJf
 turtle.refuel()
-local modem = peripheral.wrap("right")
 
+print("fartz")
+os.pullEvent("key")
+os.sleep(1000)
 rednet.open("right")
 while true do 
     -- next path is of type L
-    nextPath = myTurtle:findPath(165, 255)
+    nextPath = myTurtle:findPath(10, 10)
     dxs = List()
     for i=0,nextPath.size-2 do
         p1 = nextPath:get(i + 1)
@@ -93,13 +158,12 @@ while true do
     print("path length: " .. dxs.size)
     print(dxs)
     for i=0,dxs.size-1 do
-        local test = "fuck me bro"
-        rednet.broadcast(test)
+        --rednet.broadcast("fuck me bro")
 	    myTurtle:move(dxs:get(i))
     end
     print("easy peasy")
 
-    nextPath = myTurtle:findPath(180, 259)
+    nextPath = myTurtle:findPath(26, 26)
     dxs = List()
     for i=0,nextPath.size-2 do
         p1 = nextPath:get(i + 1)
@@ -110,13 +174,13 @@ while true do
     print("path length: " .. dxs.size)
     print(dxs)
     for i=0,dxs.size-1 do
-        rednet.broadcast("fuck you bro")
+        --rednet.broadcast("fuck you bro")
 	    myTurtle:move(dxs:get(i))
     end
     print("easy peasy")
     -- server testing 
     print("sent some bull shit")
-    sleep(100)
+    os.sleep(100)
     -- os.sleep(100)
     -- if myTurtle:needsFuel() then
     --     print("running low champ: " .. turtle.getFuelLevel()) 

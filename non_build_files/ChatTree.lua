@@ -58,27 +58,6 @@ attributes:
         text = "buttz with s"
     }
 }
-Professor Turtle: 
-...Quantum physiciality checked....
-...Steve detected...
-(a) Quantum physiciality?
-(s) The reactor is looking nice
-(d) What is this place?
-    This is Turtle Nation. The Steve that
-    they call hackobster said he made it.
-    im not too sure, I just really like 
-    reactors for some reason
-
-    (a) You only like reactors because steve programmed
-    you to like re
-
-(f) What are you doing?
-
-
-
-
-
-(d):
 
 
 (Budder Buddy)

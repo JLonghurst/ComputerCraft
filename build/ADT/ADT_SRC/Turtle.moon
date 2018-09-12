@@ -20,8 +20,6 @@ class Turtle
         @y = y
         @z = z 
         @dir = Vector(x - oldx, y - oldy)
-        --@facing = dir\toFacing()
-        --print("facing: " .. @facing)
         print(@dir)
         print(@posString())
         os.sleep(5)
@@ -46,14 +44,11 @@ class Turtle
 
     onEachMove: =>
         print(@dir\__tostring() .. " : " .. @posString())
-        --print(@dir)
-        --location = "position: ("..@x..", "..@y..", "..@z..")"
-        --print(location.." Facing: ".."("..@dir.x..", "..@dir.y..")")
 
     -- direction is a vector with length 1
     move: (direction) =>
-        assert(@dir\length() == 1, "invalid length: " .. direction\length())
-        assert(direction\length() == 1, "invalid length: " .. direction\length())
+        --assert(@dir\length() == 1, "invalid length: " .. direction\length())
+        --assert(direction\length() == 1, "invalid length: " .. direction\length())
         if (@dir\rotate("90") == direction) then
             @left()
             assert(@dir == direction)
