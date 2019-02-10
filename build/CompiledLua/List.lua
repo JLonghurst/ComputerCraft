@@ -1,5 +1,6 @@
 local List
 do
+  local _class_0
   local _base_0 = {
     empty = function(self)
       return self.size == 0
@@ -71,7 +72,7 @@ do
     end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self, table)
       self.items = { }
       self.size = 0

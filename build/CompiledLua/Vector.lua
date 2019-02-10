@@ -1,5 +1,6 @@
 local Vector
 do
+  local _class_0
   local _base_0 = {
     __add = function(self, other)
       return Vector(other.x + self.x, other.y + self.y)
@@ -50,7 +51,7 @@ do
     end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self, x, y)
       self.x = x
       self.y = y

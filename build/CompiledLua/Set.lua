@@ -1,5 +1,6 @@
 local Set
 do
+  local _class_0
   local _base_0 = {
     size = function(self)
       local temp = self.size
@@ -39,7 +40,7 @@ do
     end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self)
       self.boolMap = { }
       self.size = 0

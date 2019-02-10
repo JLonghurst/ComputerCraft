@@ -15,7 +15,7 @@ class Transition
         @zero = zeroFunc
         @one = oneFunct
         @forward = moveForward
-        @nextState = transition 
+        @nextState = transition
 
 class TuringMachine 
 

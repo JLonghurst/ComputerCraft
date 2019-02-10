@@ -5,10 +5,9 @@ chat1 = {
     (b): you seem to really like butter
     (c): What is your purpose
     (f): Why are you moving butter when it just gets put back by a machine?"
-    
+
     [keys.a]: {
         text: "BUTTER IS LOVE. BUTTER IS LYFE
-        
         (a) what do you think of Turtle Nation"
         [keys.a]: {
             text: "These other turtles are fine, as long as they

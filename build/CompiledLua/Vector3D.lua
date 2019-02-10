@@ -1,5 +1,6 @@
 local Vector3D
 do
+  local _class_0
   local _base_0 = {
     __add = function(self, o)
       assert(type(o) == Vector3D)
@@ -55,7 +56,7 @@ do
     end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self, x, y, z)
       self.x = x
       self.y = y
